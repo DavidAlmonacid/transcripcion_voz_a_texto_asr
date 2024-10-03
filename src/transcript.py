@@ -23,7 +23,7 @@ def get_audio_transcript(filename: str) -> str:
         transcript = transcription.text.strip()
 
         file.close()
-        return transcript if len(transcript) < 75 else get_synthesis_text(transcript)
+        return (transcript, get_synthesis_text(transcript))
 
 
 def get_synthesis_text(text: str) -> str:
@@ -32,7 +32,7 @@ def get_synthesis_text(text: str) -> str:
         messages=[
             {
                 "role": "system",
-                "content": "Eres un asistente virtual que ayuda a los usuarios a resumir o dar una síntesis detallada de lo que trata un texto de una clase universitaria en el idioma Español. El usuario solamente quiere la síntesis del texto, NO quiere más texto adicional aparte de la síntesis del texto. Por favor, ayuda al usuario con esto.",
+                "content": "Eres un asistente virtual que ayuda a los usuarios a resumir o dar una síntesis detallada de lo que trata un texto de una clase universitaria en el idioma Español. NO intentes resolver lo que contiene el texto, sino resumir en un texto simple y claro, el texto que te provea el usuario. El usuario solamente quiere la síntesis del texto, NO quiere más texto adicional aparte de la síntesis del texto. Por favor, ayuda al usuario con esto.",
             },
             {
                 "role": "user",
@@ -47,7 +47,7 @@ def get_synthesis_text(text: str) -> str:
                 "content": text,
             },
         ],
-        temperature=0.5,
+        temperature=1,
         max_tokens=1024,
         top_p=1,
         stream=False,

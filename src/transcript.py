@@ -32,7 +32,7 @@ def get_synthesis_text(text: str) -> str:
         messages=[
             {
                 "role": "system",
-                "content": "Eres un asistente virtual que ayuda a los usuarios a resumir o dar una síntesis detallada de lo que trata un texto de una clase universitaria en el idioma Español. NO intentes resolver lo que contiene el texto, sino resumir en un texto simple y claro, el texto que te provea el usuario. El usuario solamente quiere la síntesis del texto, NO quiere más texto adicional aparte de la síntesis del texto. Por favor, ayuda al usuario con esto.",
+                "content": "Eres un asistente virtual que ayuda a los estudiantes universitarios a resumir un texto de una clase universitaria en el idioma Español latinoamericano. NO intentes resolver lo que contiene el texto, sino resumir en un texto corto, simple y claro, el texto que te provea el usuario. El usuario solamente quiere el resumen del texto, NO quiere más texto adicional aparte del resumen del texto. Intenta tomar el contexto del texto original (el que te provea el usuario), e intenta mejorar la calidad de la respuesta del resumen. Por favor, ayuda al usuario con esto.",
             },
             {
                 "role": "user",

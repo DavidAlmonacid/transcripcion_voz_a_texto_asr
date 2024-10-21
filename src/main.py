@@ -1,5 +1,6 @@
-from fastapi import FastAPI
 import os
+
+from fastapi import FastAPI
 
 from transcript import get_audio_transcript
 
@@ -12,12 +13,17 @@ app = FastAPI()
 # def read_item(item_id: int, q: Union[str, None] = None):
 #     return {"item_id": item_id, "q": q}
 
-@app.get("/audio/{audio_id}")
+
+@app.get("/api/audio/{audio_id}")
 def read_root(audio_id: str):
     filename = os.path.dirname(__file__) + f"/audio/{audio_id}.m4a"
     transcript, final_transcript = get_audio_transcript(filename)
-    
+
+    # return {
+    #     "original_transcription": transcript,
+    #     "final_transcription": final_transcript,
+    # }
+
     return {
-        "original_transcription": transcript,
-        "final_transcription": final_transcript,
+        "hello": "world",
     }

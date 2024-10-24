@@ -9,15 +9,17 @@ app = FastAPI()
 # filename = os.path.dirname(__file__) + "/audio/voz-docente-005.m4a"
 # transcript, final_transcript = get_audio_transcript(filename)
 
-# @app.get("/items/{item_id}")
-# def read_item(item_id: int, q: Union[str, None] = None):
-#     return {"item_id": item_id, "q": q}
+@app.get("/api/audio/debug/{audio_id}")
+def get_audio_transcription_debug(audio_id: str):
+    return {
+        "result": f"Hello {audio_id}",
+    }
 
 
 @app.get("/api/audio/{audio_id}")
-def read_root(audio_id: str):
-    # filename = os.path.dirname(__file__) + f"/audio/{audio_id}.m4a"
-    # transcript, final_transcript = get_audio_transcript(filename)
+def get_audio_transcription(audio_id: str):
+    #filename = os.path.dirname(__file__) + f"/audio/{audio_id}.m4a"
+    #transcript, final_transcript = get_audio_transcript(filename)
 
     # return {
     #     "original_transcription": transcript,

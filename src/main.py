@@ -1,4 +1,5 @@
 from os.path import dirname, join
+from os.path import exists as file_exists
 
 from fastapi import FastAPI
 
@@ -10,16 +11,21 @@ app = FastAPI()
 
 @app.get("/api/audio/{audio_id}")
 def get_audio_transcription(audio_id: str):
-    source_file = f"{audio_id}.m4a"
+    formatted_audio_id = audio_id[0:-4].split(".m4a")[0]
 
-    if source_file != f"{audio_id.split('.m4a')[0]}.m4a":
+    if audio_id != f"{formatted_audio_id}.m4a":
         return {
             "message": "Invalid audio id",
         }
 
-    get_audio(source_file)
+    get_audio(audio_id)
 
-    filename = join(dirname(__file__), "audio", source_file)
+    filename = join(dirname(__file__), "audio", audio_id)
+
+    if not file_exists(filename):
+        return {
+            "message": "The audio file does not exist",
+        }
 
     try:
         transcript, synthesis = get_audio_transcript(filename)
@@ -31,9 +37,9 @@ def get_audio_transcription(audio_id: str):
             }
         )
 
-    except TypeError as e:
+    except Exception:
         return {
-            "message": f"get_audio_transcription: TypeError: {e}",
+            "message": "Error getting the audio transcript",
         }
 
     return {

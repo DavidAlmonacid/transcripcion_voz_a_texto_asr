@@ -12,6 +12,12 @@ supabase = create_client(url, key)
 
 def get_audio(source_file: str):
     try:
+        response_audio = supabase.storage.from_("audios").download(source_file)
+    except Exception as e:
+        print(f"get_audio: Error downloading the audio: {e}")
+        return None
+
+    try:
         os.makedirs(
             os.path.join(os.path.dirname(__file__), "audio"),
             exist_ok=True,
@@ -24,8 +30,7 @@ def get_audio(source_file: str):
         )
 
         with open(destination_file, "wb+") as f:
-            res = supabase.storage.from_("audios").download(source_file)
-            f.write(res)
+            f.write(response_audio)
             f.close()
 
     except FileNotFoundError as e:

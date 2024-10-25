@@ -30,6 +30,10 @@ def get_audio_transcript(filename: str):
         print(f"get_audio_transcript: FileNotFoundError: {e}")
         return None
 
+    except Exception as e:
+        print(f"get_audio_transcript: Exception: {e}")
+        return None
+
 
 def get_synthesis_text(text: str) -> str:
     completion = client.chat.completions.create(

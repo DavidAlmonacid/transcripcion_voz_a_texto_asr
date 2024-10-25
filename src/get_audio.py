@@ -11,12 +11,23 @@ supabase = create_client(url, key)
 
 
 def get_audio(source_file: str):
-    destination_file = f"audio/{source_file}.m4a"
+    try:
+        os.makedirs(
+            os.path.join(os.path.dirname(__file__), "audio"),
+            exist_ok=True,
+        )
 
-    with open(destination_file, "wb+") as f:
-        res = supabase.storage.from_("audios").get_public_url(source_file)
-        f.write(res)
-        f.close()
+        destination_file = os.path.join(
+            os.path.dirname(__file__),
+            "audio",
+            source_file,
+        )
 
+        with open(destination_file, "wb+") as f:
+            res = supabase.storage.from_("audios").download(source_file)
+            f.write(res)
+            f.close()
 
-# get_audio("/audio/voz-docente.mp3", "voz-docente.mp3")
+    except FileNotFoundError as e:
+        print(f"get_audio: FileNotFoundError: {e}")
+        return None

@@ -10,20 +10,25 @@ client = Groq(
 )
 
 
-def get_audio_transcript(filename: str) -> str:
-    with open(filename, "rb") as file:
-        transcription = client.audio.transcriptions.create(
-            file=(filename, file.read()),
-            model="whisper-large-v3",
-            language="es",
-            temperature=0.0,
-            prompt="Audio de un docente impartiendo una clase universitaria",
-        )
+def get_audio_transcript(filename: str):
+    try:
+        with open(filename, "rb") as file:
+            transcription = client.audio.transcriptions.create(
+                file=(filename, file.read()),
+                model="whisper-large-v3",
+                language="es",
+                temperature=0.0,
+                prompt="Audio de un docente impartiendo una clase universitaria",
+            )
 
-        transcript = transcription.text.strip()
+            transcript = transcription.text.strip()
+            file.close()
 
-        file.close()
-        return (transcript, get_synthesis_text(transcript))
+            return (transcript, get_synthesis_text(transcript))
+
+    except FileNotFoundError as e:
+        print(f"get_audio_transcript: FileNotFoundError: {e}")
+        return None
 
 
 def get_synthesis_text(text: str) -> str:
@@ -55,8 +60,3 @@ def get_synthesis_text(text: str) -> str:
     )
 
     return completion.choices[0].message.content.strip()
-
-
-if __name__ == "__main__":
-    transcript_message = get_audio_transcript("/audio/voz-docente.mp3")
-    print(transcript_message)

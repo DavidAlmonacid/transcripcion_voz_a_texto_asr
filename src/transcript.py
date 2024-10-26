@@ -37,7 +37,7 @@ def get_audio_transcript(filename: str):
 
 def get_synthesis_text(text: str) -> str:
     completion = client.chat.completions.create(
-        model="gemma2-9b-it",
+        model="llama3-8b-8192",
         messages=[
             {
                 "role": "system",

@@ -24,7 +24,13 @@ def get_audio_transcript(filename: str):
             transcript = transcription.text.strip()
             file.close()
 
-            return (transcript, get_synthesis_text(transcript))
+            synthesis = (
+                transcription
+                if len(transcript) <= 80
+                else get_synthesis_text(transcript)
+            )
+
+            return (transcript, synthesis)
 
     except FileNotFoundError as e:
         print(f"get_audio_transcript: FileNotFoundError: {e}")

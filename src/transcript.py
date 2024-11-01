@@ -25,7 +25,7 @@ def get_audio_transcript(filename: str):
             file.close()
 
             synthesis = (
-                transcript if len(transcript) <= 80 else get_synthesis_text(transcript)
+                transcript if len(transcript) <= 90 else get_synthesis_text(transcript)
             )
 
             return (transcript, synthesis)

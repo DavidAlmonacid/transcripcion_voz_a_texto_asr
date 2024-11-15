@@ -57,6 +57,14 @@ def get_synthesis_text(text: str) -> str:
             },
             {
                 "role": "user",
+                "content": "Ya abrí la aplicación XAMPP, estoy en el panel de control, ya activé los servicios de Apache, ya activé el servicio de MySQL, aunque este no es necesario para lo que estamos haciendo, MySQL no es necesario porque yo no voy a trabajar con bases de datos.",
+            },
+            {
+                "role": "assistant",
+                "content": "El docente está explicando la configuración inicial de XAMPP, donde se activan los servicios de Apache y MySQL, aunque este último no es necesario para la actividad que se está realizando.",
+            },
+            {
+                "role": "user",
                 "content": text,
             },
         ],

@@ -63,6 +63,8 @@ def get_synthesis_text(text: str) -> str:
                 "role": "assistant",
                 "content": "El docente está explicando la configuración inicial de XAMPP, donde se activan los servicios de Apache y MySQL, aunque este último no es necesario para la actividad que se está realizando.",
             },
+            # Añadir de aqui para abajo
+            # Añadir de aqui para arrriba
             {
                 "role": "user",
                 "content": text,

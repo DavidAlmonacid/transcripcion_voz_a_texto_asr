@@ -63,6 +63,14 @@ def get_synthesis_text(text: str) -> str:
                 "role": "assistant",
                 "content": "El docente está explicando la configuración inicial de XAMPP, donde se activan los servicios de Apache y MySQL, aunque este último no es necesario para la actividad que se está realizando.",
             },
+            {
+                "role": "user",
+                "content": "A los de tecnología les toca así, el sistema funciona en un momento y en un momento pum, cinco, seis de la tarde, un sábado, un domingo, y si no funciona, ¿qué hacen? Pues te van a llamar. Ya le mandamos el carro, tranquilo, ya va para allá el carro, va con él, entonces lo recogemos, va por el bicho, ya está bajo, se cayó el sistema, toca montarlo ya. llevese eso aquí en la cabeza nosotros no somos públicos que de 8 a 5 y chao 8 entramos aquí nos sacan si a las 5 o 6 todo está bien nos vamos pero usted tiene que llevarse eso en la cabeza si no va a perder el año acuérdense que cuando usted empieza a armar la oferta de vida lo que le evaluan a uno es que ya van a ser ingresados es la continuidad de tiempo y la cantidad mínima de una empresa son dos años. Si usted ve una hoja de vida y le muestra a la persona dos meses aquí, tres meses aquí, cuatro meses aquí, no, pero este man que.",
+            },
+            {
+                "role": "assistant",
+                "content": "El docente está hablando sobre la responsabilidad de los profesionales de tecnología, quienes deben estar disponibles para solucionar problemas en cualquier momento, incluso los fines de semana. Además, menciona la importancia de la continuidad laboral para ser considerado por una empresa.",
+            },
             # Añadir de aqui para abajo
             # Añadir de aqui para arrriba
             {

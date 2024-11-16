@@ -21,6 +21,9 @@ def get_audio_transcription(audio_id: str):
     get_audio(audio_id)
 
     filename = join(dirname(__file__), "audio", audio_id)
+   
+    # Para hacer pruebas locales
+    # filename = join(dirname(__file__), "audio", "voz-docente-2.m4a")
 
     if not file_exists(filename):
         return {
@@ -43,5 +46,6 @@ def get_audio_transcription(audio_id: str):
         }
 
     return {
+        # "transcript": transcript,
         "message": synthesis,
     }

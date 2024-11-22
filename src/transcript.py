@@ -1,4 +1,5 @@
 import os
+from os.path import abspath, dirname, join
 
 from dotenv import load_dotenv
 from groq import Groq
@@ -38,6 +39,24 @@ def get_audio_transcript(filename: str):
         print(f"get_audio_transcript: Exception: {e}")
         return None
 
+    finally:
+        audio_dir = join(dirname(__file__), "audio")
+        audio_dir = abspath(audio_dir)  # Convertir a ruta absoluta
+
+        for filename in os.listdir(audio_dir):
+            file_path = join(audio_dir, filename)
+            file_path = abspath(file_path)  # Convertir a ruta absoluta
+
+            if not file_path.startswith(audio_dir):
+                print(f"Skipping potentially unsafe path: {file_path}")
+                continue
+
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+            except Exception as e:
+                print(f"Failed to delete {file_path}. Reason: {e}")
+
 
 def get_synthesis_text(text: str) -> str:
     completion = client.chat.completions.create(
@@ -71,12 +90,11 @@ def get_synthesis_text(text: str) -> str:
                 "role": "assistant",
                 "content": "El docente está hablando sobre la responsabilidad de los profesionales de tecnología, quienes deben estar disponibles para solucionar problemas en cualquier momento, incluso los fines de semana. Además, menciona la importancia de la continuidad laboral para ser considerado por una empresa.",
             },
-            # Añadir de aqui para abajo
             {
                 "role": "user",
                 "content": "Primero, vamos a abrir el simulador de red Cisco Packet Tracer. Una vez dentro, seleccionamos un switch desde el panel de dispositivos y lo arrastramos al área de trabajo. Ahora, necesitamos agregar dos computadoras para la simulación. Recuerden que cada dispositivo en una red necesita una dirección IP, así que antes de conectar los cables, configuraremos las IPs.",
             },
-            { 
+            {
                 "role": "assistant",
                 "content": "El docente está explicando cómo configurar una red en Cisco Packet Tracer, donde se selecciona un switch y dos computadoras para la simulación. Antes de conectar los cables, se deben configurar las direcciones IP de los dispositivos.",
             },
@@ -87,23 +105,24 @@ def get_synthesis_text(text: str) -> str:
             {
                 "role": "assistant",
                 "content": "Para configurar las direcciones IP en las computadoras, se debe acceder a la pestaña Desktop y luego a IP Configuration. La primera computadora tendrá la IP.",
-            }
+            },
             {
                 "role": "user",
                 "content": "En esta sesión hablaremos del concepto de separación de poderes en un estado democrático. Este principio, que Montesquieu popularizó, establece que el poder del estado debe dividirse en tres ramas: legislativa, ejecutiva y judicial, para evitar la concentración de poder en una sola entidad. Por ejemplo, en muchos países, el Congreso o Parlamento es quien elabora las leyes (poder legislativo), el Presidente o Primer Ministro las ejecuta (poder ejecutivo) y los jueces interpretan y aplican esas leyes (poder judicial). Este sistema busca mantener un equilibrio entre las ramas y garantizar los derechos fundamentales de los ciudadanos.",
             },
             {
                 "role": "assistant",
-                "content": "El docente está explicando el concepto de separación de poderes en un estado democrático, donde el poder se divide en tres ramas: legislativa, ejecutiva y judicial. Cada rama tiene funciones específicas para evitar la concentración de poder y garantizar los derechos de los ciudadanos.", 
+                "content": "El docente está explicando el concepto de separación de poderes en un estado democrático, donde el poder se divide en tres ramas: legislativa, ejecutiva y judicial. Cada rama tiene funciones específicas para evitar la concentración de poder y garantizar los derechos de los ciudadanos.",
             },
-            { 
+            {
                 "role": "user",
                 "content": "Hoy vamos a trabajar en el análisis de mercado para evaluar la viabilidad de sus ideas de negocio. Recuerden que un análisis de mercado nos ayuda a entender a nuestros posibles clientes, a identificar a los competidores y a encontrar un espacio en el mercado donde podamos diferenciarnos. Por ejemplo, si quiero emprender con una cafetería, debo investigar: ¿quiénes son los clientes? ¿Prefieren un café rápido o buscan una experiencia más relajada? También debo observar a los competidores: ¿qué están haciendo? ¿Qué puedo ofrecer que sea diferente? Si mis competidores usan granos de café convencionales, tal vez yo pueda ofrecer opciones orgánicas o especiales. Para la actividad de hoy, definan quién sería su cliente ideal y escriban tres formas en las que su negocio puede destacarse. Luego lo discutiremos en grupo.",
             },
             {
                 "role": "assistant",
                 "content": "El docente está explicando la importancia del análisis de mercado para evaluar la viabilidad de un negocio. Este análisis ayuda a comprender a los clientes, identificar a los competidores y encontrar un espacio diferenciado en el mercado. Por ejemplo, si se quiere emprender una cafetería, se debe investigar las preferencias de los clientes y las estrategias de los competidores para ofrecer algo único.",
-            }
+            },
+            # Añadir de aqui para abajo
             # Añadir de aqui para arrriba
             {
                 "role": "user",

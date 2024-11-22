@@ -1,4 +1,5 @@
 import os
+from os.path import dirname, join
 
 from dotenv import load_dotenv
 from supabase import create_client
@@ -18,16 +19,9 @@ def get_audio(source_file: str):
         return None
 
     try:
-        os.makedirs(
-            os.path.join(os.path.dirname(__file__), "audio"),
-            exist_ok=True,
-        )
+        os.makedirs(join(dirname(__file__), "audio"), exist_ok=True)
 
-        destination_file = os.path.join(
-            os.path.dirname(__file__),
-            "audio",
-            source_file,
-        )
+        destination_file = join(dirname(__file__), "audio", source_file)
 
         with open(destination_file, "wb+") as f:
             f.write(response_audio)
